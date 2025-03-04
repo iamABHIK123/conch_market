@@ -1,0 +1,60 @@
+/* src/cssBase/Categories.css */
+/* html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+} */
+
+.container-fluid {
+  padding: 0 15px;
+  min-height: 100vh; /* Ensure container takes up at least the full viewport height */
+}
+
+.category-images .row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.card-img-top {
+  width: 100%;
+  height: auto;
+  border-bottom: 1px solid #ddd;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.card-text {
+  margin: 0;
+}
+
+.btn-group .btn {
+  margin-right: 5px;
+}
+
+.btn-group .btn.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.card-img-custom {
+  height: 320px;
+  object-fit: cover; /* Ensures the image covers the area without distortion */
+  width: 100%; /* Optional: make the image responsive */
+}
+
+@media (min-width: 768px) {
+  /* When screen size is 768px or larger, set .col-md-4 width to 20.333% */
+  .col-md-4 {
+    flex: 0 0 auto;
+    width: 20.33333333%; /* approximately 1/5th of the container width */
+  }
+}

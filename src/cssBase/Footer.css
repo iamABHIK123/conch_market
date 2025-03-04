@@ -1,0 +1,48 @@
+/* Footer.css */
+
+.mobile-footer {
+  --bg-overlay-color:#ffd11a; /* Vibrant yellow with slight transparency */
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 1vh 0;
+  box-shadow: 0 -0.4vh 1vh rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  height: 5vh;
+  
+  background: var(--bg-overlay-color); /* Solid background to prevent overlap */
+  backdrop-filter: blur(10px); /* Optional: Blur content behind the footer */
+  border-top: 1px solid rgba(0, 0, 0, 0.2); /* Optional separator for better visibility */
+}
+
+
+  
+  .footer-link {
+    text-align: center;
+    color: #090000; /* White text color */
+    text-decoration: none;
+    flex: 1;
+    padding: 0 1vh;
+    transition: color 0.3s ease; /* Smooth color transition */
+  }
+  
+  .footer-link i {
+    display: block;
+    font-size: 3vh;
+    margin-bottom: 0.5vh;
+  }
+  
+  .footer-link span {
+    font-size: 1.5vh;
+    display: block;
+  }
+  
+  .footer-link:hover,
+  .footer-link:focus {
+    /* color: #ffd11a; Change text color to yellow when hovered or focused */
+    font-weight: bold; 
+  }
+  

@@ -1,0 +1,132 @@
+
+
+.header-logo {
+    width: 5vh;
+    height: 5vh;
+    margin-right: 1vh;
+}
+
+
+
+.header-login-button {
+    padding: 1vh 2vh;
+    border: none;
+    border-radius: 0.4vh;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    font-size: 1.6vh;
+    margin-right: 1.5rem; /* Added margin between login/logout and cart icon */
+}
+
+.header-cart-icon {
+    padding: 1vh 1.5vh;
+    cursor: pointer;
+    background-color: #007bff;
+    border-radius: 0.4vh;
+    margin-right: 1.5rem; /* Added margin between login/logout and cart icon */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-cart-icon:hover {
+    background-color: none;
+}
+
+.header-cart-icon svg {
+    fill: white;
+    font-size: 2.5vh; /* Adjust icon size */
+}
+
+
+/* Header.css */
+.header {
+  background: linear-gradient(to top, #ffefc6, #ffd11a); /* Subtle gradient background */
+  padding: 10px;
+}
+
+/* element.style {
+  display: flex
+;
+  align-items: flex-start;
+  position: fixed;
+  top: 0;
+  width: 20%;
+  z-index: 999;
+  height: 100%;
+} */
+.header-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.header-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: black; /* Text color to contrast with background */
+}
+
+.header-bottom {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+}
+
+.header-search-bar {
+  width: 50rem; /* Set initial width for full screen */
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+}
+  .header-login-button {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    color: #ffd11a;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .header-login-button:hover {
+    background-color: #ffe066;
+  }
+  
+  .header-cart-icon {
+    cursor: pointer;
+    color: white;
+  }
+
+
+  /* Responsive Styles */
+@media (max-width: 1200px) {
+  .header-search-bar {
+      width: 40rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .header-search-bar {
+      width: 30rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-search-bar {
+      width: 20rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .header-search-bar {
+      width: 15rem;
+  }
+}
+
+
+  
+  
+  

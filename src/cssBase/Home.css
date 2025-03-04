@@ -1,0 +1,40 @@
+/* @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.5);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  .loading-animation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: radial-gradient(circle, orange, white); 
+    animation: fadeIn 2s ease-in-out;
+  }
+  
+  .loading-animation img {
+    width: 150px; 
+    height: auto;
+    animation: fadeIn 2s ease-in-out;
+  }
+   
+  */
+
+
+.img-Fit {
+    object-fit: contain;
+  }
+
+  .slider__item img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 55rem;
+    object-fit: contain;
+}
