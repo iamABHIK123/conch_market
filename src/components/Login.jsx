@@ -37,6 +37,7 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function Login() {
+  //console.log('this is a default',defaultTheme);
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -53,14 +54,18 @@ export default function Login() {
       const response = await API.post("/login", loginData);
       // Handle successful login (e.g., store user info, navigate to another page)
       console.log("Login successful", response.data,response.token);
-     
       // Store email in session storage
-      sessionStorage.setItem("accessToken", response.data.accessToken);
-      sessionStorage.setItem("refreshToken", response.data.token);
-      
-      sessionStorage.setItem("email", loginData.email);
-      navigate("/"); // Replace with your target route after login
-      
+      localStorage.setItem("accessToken", response.data.accessToken);
+      localStorage.setItem("refreshToken", response.data.token);
+      localStorage.setItem("role", response.data.userType);
+      localStorage.setItem("email", loginData.email);
+      console.log(response.data.userType === 'ADMIN')
+      if(response.data.userType === 'ADMIN'){
+        console.log('admin')
+        navigate("/admin/dashboard");
+      }else{
+        navigate("/");
+      }
     } catch (error) {
       // Handle login error
       console.error("Login failed", error);

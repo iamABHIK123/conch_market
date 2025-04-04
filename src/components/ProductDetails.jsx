@@ -1,116 +1,3 @@
-// import React, { useState } from 'react';
-// import { 
-//   Box, Grid, Typography, Button, Rating, Card, CardContent, CardMedia 
-// } from '@mui/material';
-
-// const ProductDetails = ({ product }) => {
-//   // Destructure product details from props
-//   const { name, price, description, rating, mainImage, thumbnailImages, reviews, relatedProducts } = product;
-
-//   // State to manage the selected image
-//   const [selectedImage, setSelectedImage] = useState(mainImage);
-
-//   return (
-//     <Box sx={{ p: 4 }}>
-//       <Grid container spacing={4}>
-//         {/* Product Image Section */}
-//         <Grid item xs={12} md={6}>
-//           <Card>
-//             <CardMedia
-//               component="img"
-//               height="400"
-//               image={selectedImage}
-//               alt="Product Image"
-//             />
-//           </Card>
-
-//           {/* Thumbnails */}
-//           <Box sx={{ mt: 2, display: 'flex', gap: 1 }}>
-//             {thumbnailImages.map((img, index) => (
-//               <Card key={index} sx={{ maxWidth: 80, cursor: 'pointer' }} onClick={() => setSelectedImage(img)}>
-//                 <CardMedia
-//                   component="img"
-//                   height="80"
-//                   image={img}
-//                   alt={`Thumbnail ${index + 1}`}
-//                 />
-//               </Card>
-//             ))}
-//           </Box>
-//         </Grid>
-
-//         {/* Product Information Section */}
-//         <Grid item xs={12} md={6}>
-//           <Typography variant="h4" gutterBottom>
-//             {name}
-//           </Typography>
-//           <Rating name="read-only" value={rating} readOnly size="large" />
-//           <Typography variant="h5" sx={{ mt: 2, color: 'primary.main' }}>
-//             ${price}
-//           </Typography>
-//           <Typography variant="body1" sx={{ mt: 2 }}>
-//             {description}
-//           </Typography>
-
-//           <Box sx={{ mt: 4 }}>
-//             <Button variant="contained" color="primary" size="large" sx={{ mr: 2 }}>
-//               Add to Cart
-//             </Button>
-//             <Button variant="contained" color="secondary" size="large">
-//               Buy Now
-//             </Button>
-//           </Box>
-//         </Grid>
-//       </Grid>
-
-//       {/* Reviews Section */}
-//       <Box sx={{ mt: 6 }}>
-//         <Typography variant="h5" gutterBottom>
-//           Customer Reviews
-//         </Typography>
-//         {reviews.map((review, index) => (
-//           <Box key={index} sx={{ mt: 3 }}>
-//             <Typography variant="h6">{review.name}</Typography>
-//             <Rating name="read-only" value={review.rating} readOnly />
-//             <Typography variant="body2" sx={{ mt: 1 }}>
-//               {review.comment}
-//             </Typography>
-//           </Box>
-//         ))}
-//       </Box>
-
-//       {/* Related Products Section */}
-//       <Box sx={{ mt: 6 }}>
-//         <Typography variant="h5" gutterBottom>
-//           Related Products
-//         </Typography>
-//         <Grid container spacing={4} sx={{ mt: 2 }}>
-//           {relatedProducts.map((relatedProduct, index) => (
-//             <Grid key={index} item xs={12} sm={6} md={4}>
-//               <Card>
-//                 <CardMedia
-//                   component="img"
-//                   height="200"
-//                   image={relatedProduct.image}
-//                   alt={relatedProduct.name}
-//                 />
-//                 <CardContent>
-//                   <Typography variant="h6">{relatedProduct.name}</Typography>
-//                   <Typography variant="body2" color="text.secondary">
-//                     ${relatedProduct.price}
-//                   </Typography>
-//                 </CardContent>
-//               </Card>
-//             </Grid>
-//           ))}
-//         </Grid>
-//       </Box>
-//     </Box>
-//   );
-// };
-
-// export default ProductDetails;
-
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSearchParams } from 'react-router-dom';
@@ -118,6 +5,7 @@ import axios from 'axios';
 import { 
   Box, Grid, Typography, Button, Card, CardContent, CardMedia, Rating 
 } from '@mui/material';
+import API from "./App";
 
 const apiEndpoint = 'http://localhost:9090/products'; // API endpoint to get product details
 
@@ -132,12 +20,37 @@ const ProductDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState('');
+  const [quantities, setQuantities] = useState({});
+  const [user, setUser] = useState(null);
+   //console.log('category name redirected-', categoryName);
+  // Fetch User ID on Mount
+  useEffect(() => {
+    const email = localStorage.getItem("email");
+    console.log('product cart email is-', email);
+    const fetchUserId = async () => {
+      try {
+       // console.log('user effect is called');
+        const response = await API.get(`users/${email}`);
+        console.log('user response is-', response.data);
+        setUser(response.data);
+        console.log("user value is-",user);
+        //console.log('userId is-', response);
+      } catch (error) {
+        console.error("Error fetching userId:", error);
+      }
+    };
+    fetchUserId();
+  }, []);
 
+  // Log user when it updates
+useEffect(() => {
+  console.log("Updated user state:", user);
+}, [user]);
   // Fetch product details by productId
   useEffect(() => {
     const fetchProductDetails = async () => {
       try {
-        const response = await axios.get(`${apiEndpoint}/${productId}`);
+        const response = await API.get(`/products/${productId}`);
         setProduct(response.data);
         setSelectedImage(response.data.imageUrl); // Set the initial image
         setLoading(false);
@@ -158,6 +71,39 @@ const ProductDetails = () => {
   if (error) {
     return <Typography variant="h6" color="error">{error}</Typography>;
   }
+
+  const handleAddToCart = async (product) => {
+    try {
+      console.log(product);
+      console.log("Product cart is called");
+      const quantity = quantities[product.id] || 1;
+      const response = await API.post("/cart/items", {
+        productId: product.id,
+        quantity,
+        user
+      });
+      //TO DO: SMART ALERT 
+      console.log("Product added to cart:", response.data);
+    } catch (error) {
+      console.error("Error adding product to cart:", error);
+    }
+  };
+
+  // Increment Product Quantity
+  const handleIncrement = (productId) => {
+    setQuantities((prevQuantities) => ({
+      ...prevQuantities,
+      [productId]: (prevQuantities[productId] || 1) + 1,
+    }));
+  };
+
+  // Decrement Product Quantity
+  const handleDecrement = (productId) => {
+    setQuantities((prevQuantities) => ({
+      ...prevQuantities,
+      [productId]: Math.max((prevQuantities[productId] || 1) - 1, 1),
+    }));
+  };
 
   // Destructure product details from the product object
   const { 
@@ -229,9 +175,28 @@ const ProductDetails = () => {
           <Typography variant="body1" sx={{ mt: 2 }}>
             {description}
           </Typography>
-
+          <div className="input-group mb-3">
+                  <button
+                    className="btn btn-outline-secondary"
+                    onClick={() => handleDecrement(product.id)}
+                  >
+                    -
+                  </button>
+                  <input
+                    type="text"
+                    value={quantities[product.id] || 1}
+                    readOnly
+                    className="form-control"
+                  />
+                  <button
+                    className="btn btn-outline-secondary"
+                    onClick={() => handleIncrement(product.id)}
+                  >
+                    +
+                  </button>
+                </div>
           <Box sx={{ mt: 4 }}>
-            <Button variant="contained" color="primary" size="large" sx={{ mr: 2 }}>
+            <Button variant="contained" color="primary" size="large" sx={{ mr: 2 }} onClick={() => handleAddToCart(product)}>
               Add to Cart
             </Button>
             <Button variant="contained" color="secondary" size="large">

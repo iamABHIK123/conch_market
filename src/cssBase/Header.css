@@ -42,8 +42,9 @@
 
 /* Header.css */
 .header {
-  background: linear-gradient(to top, #ffefc6, #ffd11a); /* Subtle gradient background */
-  padding: 10px;
+ /*  background: linear-gradient(to top, #ffefc6, #ffd11a); /* Subtle gradient background */
+  /* padding: 10px; */
+  padding: 0px;
 }
 
 /* element.style {

@@ -30,10 +30,10 @@ export default function Account() {
 
   useEffect(() => {
     const fetchUserDetails = async () => {
-      if (sessionStorage.getItem('email') !== null) {
+      if (localStorage.getItem('email') !== null) {
         try {
-          const email = sessionStorage.getItem('email');
-          const token = sessionStorage.getItem('token');
+          const email = localStorage.getItem('email');
+          const token = localStorage.getItem('token');
           const response = await API.get(`/users/${email}`);
           if (response.status === 200) {
             const userData = {

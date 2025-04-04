@@ -10,7 +10,7 @@
   flex-direction: row;
   flex-wrap: nowrap;
   background-color: black;
-  margin-top: 1rem;
+  margin-top: 0.1rem;
 }
 
 .container__slider > button {

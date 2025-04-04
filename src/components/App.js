@@ -8,7 +8,7 @@ const API = axios.create({
 // Request Interceptor: Attach access token to every request
 API.interceptors.request.use(
   (config) => {
-    const token = sessionStorage.getItem("accessToken");
+    const token = localStorage.getItem("accessToken");
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
@@ -28,7 +28,7 @@ API.interceptors.response.use(
       console.log("Access token expired. Trying to refresh...");
 
       try {
-        const refreshToken = sessionStorage.getItem("refreshToken");
+        const refreshToken = localStorage.getItem("refreshToken");
         if (!refreshToken) {
           console.log("No refresh token available. Redirecting to login.");
           window.location.href = "/login"; // Redirect to login if refresh token is missing
@@ -43,15 +43,15 @@ API.interceptors.response.use(
         );
 
         // Update new access token in local storage
-        sessionStorage.setItem("accessToken", refreshResponse.data.accessToken);
+        localStorage.setItem("accessToken", refreshResponse.data.accessToken);
 
         // Retry original request with new token
         originalRequest.headers["Authorization"] = `Bearer ${refreshResponse.data.accessToken}`;
         return axios(originalRequest);
       } catch (refreshError) {
         console.log("Refresh token expired. Redirecting to login.");
-        sessionStorage.removeItem("accessToken");
-        sessionStorage.removeItem("refreshToken");
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
         window.location.href = "/login"; // Redirect user to login page
       }
     }

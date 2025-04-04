@@ -1,9 +1,19 @@
-import React from 'react'
+import React from 'react';
+import '../cssBase/Admin.css';
+import Sidebar from './Sidebar';
+import DashboardHeader from './DashBoardHeader'
+import Dashboard from './Dashboard';
 
-export default function Admin() {
+function Admin() {
   return (
-    <div>
-      This is admin page!!
+    <div className="admin-dashboard">
+      <Sidebar />
+      <div className="main-content">
+        <DashboardHeader />
+        <Dashboard />
+      </div>
     </div>
-  )
+  );
 }
+
+export default Admin;

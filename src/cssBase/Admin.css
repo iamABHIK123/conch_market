@@ -1,0 +1,140 @@
+/* Resetting some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Body and general styles */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+  }
+  
+  /* Main dashboard container */
+  .admin-dashboard {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  /* Sidebar Styles */
+  .sidebar {
+    width: 250px;
+    background-color: #333;
+    color: white;
+    padding-top: 20px;
+    position: fixed;
+    height: 100%;
+  }
+  
+  .sidebar-header {
+    text-align: center;
+    padding-bottom: 20px;
+  }
+  
+  .sidebar h2 {
+    font-size: 24px;
+  }
+  
+  .sidebar-menu {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .sidebar-menu li {
+    padding: 15px;
+    text-align: center;
+  }
+  
+  .sidebar-menu li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+  }
+  
+  .sidebar-menu li a:hover {
+    background-color: #444;
+  }
+  
+  /* Main Content Styles */
+  .main-content {
+    margin-left: 250px;
+    padding: 20px;
+    flex: 1;
+  }
+  
+  /* DashboardHeader styles */
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+  
+  .dashboard-header h1 {
+    font-size: 28px;
+  }
+  
+  .user-info {
+    font-size: 16px;
+  }
+  
+  .user-info button {
+    padding: 5px 15px;
+    background-color: #7451f8;
+    border: none;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .user-info button:hover {
+    background-color: #5e3cc6;
+  }
+  
+  /* Dashboard Cards */
+  .dashboard-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+  
+  .card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .card p {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    .admin-dashboard {
+      flex-direction: column;
+    }
+  
+    .sidebar {
+      width: 100%;
+      position: relative;
+    }
+  
+    .main-content {
+      margin-left: 0;
+    }
+  
+    .dashboard-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+  

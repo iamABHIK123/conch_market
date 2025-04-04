@@ -38,3 +38,9 @@
     max-height: 55rem;
     object-fit: contain;
 }
+
+#topSold:hover, #newItems:hover {
+  background-color: #f8f9fa; /* Light grey background on hover */
+  transform: scale(1.15); /* Slight zoom effect */
+  transition: all 0.3s ease-in-out;
+}

@@ -1,6 +1,7 @@
 // searchSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import API from '../../components/App';
 
 // API endpoint
 const apiEndpoint = "http://localhost:9090/products";
@@ -27,7 +28,7 @@ export const fetchSearchResults = createAsyncThunk(
   async (searchText) => {
     try {
       // Make an API call using the search text
-      const response = await axios.get(`${apiEndpoint}/name/${searchText}`, {
+      const response = await API.get(`/products/name/${searchText}`, {
         withCredentials: true, // Add credentials if required
       });
 
